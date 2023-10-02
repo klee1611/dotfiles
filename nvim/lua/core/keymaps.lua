@@ -16,6 +16,9 @@ map('n', '<F2>', ':NvimTreeToggle<CR>')            -- open/close
 map('n', '<leader>f', ':NvimTreeRefresh<CR>')       -- refresh
 map('n', '<leader>n', ':NvimTreeFindFile<CR>')      -- search file
 
+-- SymbolsOutline
+map('n', '<F3>', ':SymbolsOutline<CR>')
+
 -- Editor tabs
 map('n', 'tc', ':tabnew<CR>')               -- new tab
 map('n', 'tn', ':tabnext<CR>')              -- next tab
