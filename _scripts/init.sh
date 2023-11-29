@@ -2,9 +2,16 @@
 
 check_and_install_brew() {
     local pkg_name=${1}
+    local cask=${2}
     echo "Checking and installing ${pkg_name}..."
-    HOMEBREW_NO_AUTO_UPDATE=1 brew ls --version ${pkg_name} || \
-        HOMEBREW_NO_AUTO_UPDATE=1 brew install ${pkg_name}
+    if [[ ${cask} == true ]]
+    then
+        HOMEBREW_NO_AUTO_UPDATE=1 brew ls --version ${pkg_name} || \
+            HOMEBREW_NO_AUTO_UPDATE=1 brew install --cask ${pkg_name}
+    else
+        HOMEBREW_NO_AUTO_UPDATE=1 brew ls --version ${pkg_name} || \
+            HOMEBREW_NO_AUTO_UPDATE=1 brew install ${pkg_name}
+    fi
 }
 
 check_installed() {
@@ -19,10 +26,17 @@ check_installed() {
 }
 
 main() {
-    brew_pkg_list=( "git" "nvm" "pyenv" "nvim" "pnpm" "asdf" "curl" "pipx" )
+    brew_pkg_list=( "git" "nvm" "pyenv" "nvim" "pnpm" "asdf" "curl" "pipx" "wget" )
     for pkg in "${brew_pkg_list[@]}"; do
         check_and_install_brew $pkg
     done
+
+    check_and_install_brew "kitty" true
+    if [ ! -d ~/.config/kitty/kitty-themes ]; then
+        mkdir -p ~/.config/kitty/kitty-themes
+        THEME=https://raw.githubusercontent.com/dexpota/kitty-themes/master/themes/Apprentice.conf
+        wget "$THEME" -P ~/.config/kitty/kitty-themes/themes
+    fi
 
     echo "Checking if gvm is installed..."
     if [ $(check_installed "gvm" "gvm") -eq 0 ]; then
