@@ -13,6 +13,10 @@
       glob: true
       path: nvim/*
 
+    ~/.config/zsh/:
+      glob: true
+      path: zsh/*
+
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
     - [sh -c "./_scripts/zsh_init.sh", Setting up oh-my-zsh and plugins]
