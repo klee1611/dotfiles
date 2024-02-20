@@ -74,4 +74,22 @@ return {
         "simrat39/symbols-outline.nvim",
         config = true
     },
+    -- markdown preview
+    {
+        "iamcco/markdown-preview.nvim",
+        cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+        ft = { "markdown" },
+        build = function()
+            vim.fn["mkdp#util#install"]()
+        end,
+    },
+    -- git
+    {
+        "tpope/vim-fugitive",
+        cmd = "Git"
+    },
+    -- dev container
+    {
+        'jamestthompson3/nvim-remote-containers'
+    }
 }
