@@ -42,6 +42,7 @@ main() {
     if [ $(check_installed "gvm" "gvm") -eq 0 ]; then
         echo "Installing gvm and go..."
         bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
+        [[ -s "${HOME}/.gvm/scripts/gvm" ]] && source "${HOME}/.gvm/scripts/gvm"
         gvm install go1.4 -B
         gvm use go1.4
         export GOROOT_BOOTSTRAP=$GOROOT
