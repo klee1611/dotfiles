@@ -23,11 +23,6 @@ return {
             require('onedark').load()
         end
     },
-    -- Dashboard (start screen)
-    {
-        'goolord/alpha-nvim',
-        dependencies = { "nvim-tree/nvim-web-devicons" },
-    },
     -- LSP related
     {
         "williamboman/mason.nvim",
@@ -50,6 +45,11 @@ return {
         'nvim-telescope/telescope.nvim',
         branch = '0.1.x',
         dependencies = { 'nvim-lua/plenary.nvim' },
+    },
+    -- file browser extension for telescope
+    {
+        "nvim-telescope/telescope-file-browser.nvim",
+        dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
     },
     -- Github Copilot
     {
@@ -86,7 +86,17 @@ return {
     -- git
     {
         "tpope/vim-fugitive",
-        cmd = "Git"
+        cmd = "Git",
+        event = 'BufWinEnter',
+    },
+    -- git branch viewer
+    {
+        "rbong/vim-flog",
+        lazy = true,
+        cmd = { "Flog", "Flogsplit", "Floggit" },
+        dependencies = {
+            "tpope/vim-fugitive",
+        },
     },
     -- dev container
     {
