@@ -1,0 +1,3 @@
+random_uuid() {
+	echo -e "from uuid import uuid4\nprint(uuid4())" | python3
+}
