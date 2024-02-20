@@ -9,6 +9,10 @@
     ~/.tmux.conf: tmux/tmux.conf
     ~/.tmux.conf.local: tmux/tmux.conf.local
 
+    ~/.config/nvim/:
+      glob: true
+      path: nvim/*
+
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
     - [sh -c "./_scripts/zsh_init.sh", Setting up oh-my-zsh and plugins]
