@@ -26,7 +26,7 @@ return {
     -- Dashboard (start screen)
     {
         'goolord/alpha-nvim',
-        dependencies = {"nvim-tree/nvim-web-devicons"},
+        dependencies = { "nvim-tree/nvim-web-devicons" },
     },
     -- LSP related
     {
@@ -37,5 +37,41 @@ return {
             },
         },
     },
-    {"sindrets/diffview.nvim"},
+    -- Git diff views
+    { "sindrets/diffview.nvim" },
+    -- autopairs
+    {
+        'windwp/nvim-autopairs',
+        event = "InsertEnter",
+        opts = {} -- this is equalent to setup({}) function
+    },
+    -- telescope
+    {
+        'nvim-telescope/telescope.nvim',
+        branch = '0.1.x',
+        dependencies = { 'nvim-lua/plenary.nvim' },
+    },
+    -- Github Copilot
+    {
+        "zbirenbaum/copilot.lua",
+        cmd = "Copilot",
+        event = "InsertEnter",
+        config = function()
+            require("copilot").setup({
+                suggestion = { enabled = false },
+                panel = { enabled = false },
+            })
+        end,
+    },
+    {
+        "zbirenbaum/copilot-cmp",
+        config = function()
+            require("copilot_cmp").setup()
+        end
+    },
+    -- Tagbar
+    {
+        "simrat39/symbols-outline.nvim",
+        config = true
+    },
 }
