@@ -19,6 +19,7 @@ return {
                     "lua_ls",
                     "tsserver",
                     "elixirls",
+                    "eslint",
                 },
             })
 
@@ -32,6 +33,7 @@ return {
                 "lua_ls",
                 "tsserver",
                 "elixirls",
+                "eslint",
             }
 
             local on_attach = function()
@@ -56,6 +58,8 @@ return {
             --
             for _, lsp in pairs(ensure_installed) do
                 lspconfig[lsp].setup({
+                    format = { enable = true },
+                    autoFixOnSave = true,
                     on_attach = on_attach,
                     capabilities = capabilities,
                     settings = {
