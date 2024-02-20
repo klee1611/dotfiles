@@ -5,22 +5,22 @@ return {
         config = function()
             require('lualine').setup({
                 options = {
-                    theme = 'tokyonight'
+                    theme = 'onedark',
                 }
             })
         end
     },
     -- colorscheme
     {
-        "folke/tokyonight.nvim",
+        "navarasu/onedark.nvim",
         lazy = false,
         priority = 1000,
         version = "*",
         config = function()
-            require("tokyonight").setup({
-                style = "night",
-            })
-            vim.cmd("colorscheme tokyonight")
+            require('onedark').setup {
+                style = 'darker'
+            }
+            require('onedark').load()
         end
     },
     -- Dashboard (start screen)
