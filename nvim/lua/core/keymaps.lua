@@ -1,9 +1,9 @@
 local function map(mode, lhs, rhs, opts)
-    local options = { noremap = true, silent = true }
-    if opts then
-        options = vim.tbl_extend('force', options, opts)
-    end
-    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+  local options = { noremap = true, silent = true }
+  if opts then
+    options = vim.tbl_extend('force', options, opts)
+  end
+  vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
 
@@ -21,7 +21,7 @@ map('n', '<leader>n', ':NvimTreeFindFile<CR>') -- search file
 map('n', '<F3>', ':SymbolsOutline<CR>')
 
 -- Telescope
-map('n', '<leader>ff', ':Telescope find_files<CR>')
+map('n', '<leader>ff', ':Telescope file_browser<CR>')
 map('n', '<leader>fg', ':Telescope live_grep<CR>')
 map('n', '<leader>fb', ':Telescope buffers<CR>')
 map('n', '<leader>fh', ':Telescope help_tags<CR>')
