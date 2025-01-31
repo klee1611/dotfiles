@@ -3,26 +3,19 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
-			"williamboman/mason.nvim",
-			"williamboman/mason-lspconfig.nvim",
+			{
+				"williamboman/mason-lspconfig.nvim",
+				dependencies = {
+					"williamboman/mason.nvim",
+				},
+			},
 			"hrsh7th/cmp-nvim-lsp", -- code completion
 		},
 		config = function()
-			local ensure_installed = {
-				"bashls",
-				"clangd",
-				"denols",
-				"pyright",
-				"rust_analyzer",
-				"gopls",
-				"lua_ls",
-				"elixirls",
-				"eslint",
-			}
+			local ensure_installed = require("plugins.utils.common").mason_ensure_installed.lsp
 			require("mason-lspconfig").setup({
 				ensure_installed = ensure_installed,
 			})
-
 
 			local on_attach = function()
 				local bufopts = { noremap = true, silent = true, buffer = 0 }
@@ -39,7 +32,8 @@ return {
 			end
 
 			local lspconfig = require("lspconfig")
-			local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+			local capabilities =
+				require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 			capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 			-- local capabilities = require('cmp_nvim_lsp').default_capabilities()

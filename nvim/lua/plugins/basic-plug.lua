@@ -1,14 +1,14 @@
 return {
 	-- statusline
 	{
-		'nvim-lualine/lualine.nvim',
+		"nvim-lualine/lualine.nvim",
 		config = function()
-			require('lualine').setup({
+			require("lualine").setup({
 				options = {
-					theme = 'onedark',
-				}
+					theme = "onedark",
+				},
 			})
-		end
+		end,
 	},
 	-- colorscheme
 	{
@@ -17,15 +17,26 @@ return {
 		priority = 1000,
 		version = "*",
 		config = function()
-			require('onedark').setup {
-				style = 'darker'
-			}
-			require('onedark').load()
-		end
+			require("onedark").setup({
+				style = "darker",
+			})
+			require("onedark").load()
+		end,
 	},
 	-- LSP related
 	{
 		"williamboman/mason.nvim",
+		config = function()
+			require("mason").setup({
+				ui = {
+					icons = {
+						package_installed = "✓",
+						package_pending = "➜",
+						package_uninstalled = "✗",
+					},
+				},
+			})
+		end,
 		opts = {
 			ui = {
 				check_outdated_packages_on_open = false,
@@ -36,20 +47,20 @@ return {
 	{ "sindrets/diffview.nvim" },
 	-- autopairs
 	{
-		'windwp/nvim-autopairs',
+		"windwp/nvim-autopairs",
 		event = "InsertEnter",
-		opts = {}     -- this is equalent to setup({}) function
+		opts = {}, -- this is equalent to setup({}) function
 	},
 	-- telescope
 	{
-		'nvim-telescope/telescope.nvim',
-		branch = '0.1.x',
-		dependencies = { 'nvim-lua/plenary.nvim' },
+		"nvim-telescope/telescope.nvim",
+		branch = "0.1.x",
+		dependencies = { "nvim-lua/plenary.nvim" },
 	},
 	-- file browser extension for telescope
 	{
 		"nvim-telescope/telescope-file-browser.nvim",
-		dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
+		dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
 	},
 	-- Github Copilot
 	{
@@ -67,7 +78,7 @@ return {
 		"zbirenbaum/copilot-cmp",
 		config = function()
 			require("copilot_cmp").setup()
-		end
+		end,
 	},
 	{
 		"CopilotC-Nvim/CopilotChat.nvim",
@@ -84,7 +95,7 @@ return {
 	-- Tagbar
 	{
 		"simrat39/symbols-outline.nvim",
-		config = true
+		config = true,
 	},
 	-- markdown preview
 	{
@@ -99,7 +110,7 @@ return {
 	{
 		"tpope/vim-fugitive",
 		cmd = "Git",
-		event = 'BufWinEnter',
+		event = "BufWinEnter",
 	},
 	-- git branch viewer
 	{
@@ -112,6 +123,6 @@ return {
 	},
 	-- dev container
 	{
-		'jamestthompson3/nvim-remote-containers'
-	}
+		"jamestthompson3/nvim-remote-containers",
+	},
 }

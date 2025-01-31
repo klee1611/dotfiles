@@ -12,7 +12,7 @@ return {
 			config = function()
 				require('mason-nvim-dap').setup({
 					-- Install debug adapter
-					ensure_installed = { "node2" },
+					ensure_installed = require("plugins.utils.common").mason_ensure_installed.dap,
 					automatic_installation = true,
 				})
 			end,
