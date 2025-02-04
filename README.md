@@ -1,58 +1,93 @@
-Dotfiles Template
-=================
+# Dotfiles for Development Environment 🛠️
+![CI Tests](https://github.com/klee1611/dotfiles/actions/workflows/ci.yml/badge.svg)
+![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)
 
-This is a template repository for bootstrapping your dotfiles with [Dotbot][dotbot].
+Welcome to my dotfiles repository! This project serves as a personal and shareable configuration setup for various development tools and environments. It aims to help developers quickly set up a consistent and efficient development environment.
 
-To get started, you can [create a new repository from this template][template]
-(or you can [fork][fork] this repository, if you prefer). You can probably
-delete this README and rename your version to something like just `dotfiles`.
+## 🚀 Project Purpose
 
-In general, you should be using symbolic links for everything, and using git
-submodules whenever possible.
+The primary goal of this repository is to:
 
-To keep submodules at their proper versions, you could include something like
-`git submodule update --init --recursive` in your `install.conf.yaml`.
+- Manage and version control configurations for development environments and tools, including Z shell, Neovim, and more.
+- Provide structured and maintainable configuration for Neovim using Lua, offering an extensible and well-organized setup for code editing, linting, formatting, debugging, and language server support.
 
-To upgrade your submodules to their latest versions, you could periodically run
-`git submodule update --init --remote`.
+## 🛠️ Neovim Configuration
 
-Inspiration
------------
+- **Modular Configuration**: Organized Lua modules for better maintainability.
+- **Plugin Management**: Optimized setup using Lazy.nvim for efficient plugin handling.
+- **Performance Optimizations**:
+  - Lazy-loading plugins to reduce startup time.
+  - Refactoring older Vimscript configurations with Lua-based alternatives.
+  - Asynchronous plugin loading for heavy plugins like Treesitter to improve responsiveness.
+- **Custom Key Bindings**
+- **UI Enhancements**
 
-If you're looking for inspiration for how to structure your dotfiles or what
-kinds of things you can include, you could take a look at some repos using
-Dotbot.
+### Key Features
 
-* [anishathalye's dotfiles][anishathalye_dotfiles]
-* [csivanich's dotfiles][csivanich_dotfiles]
-* [m45t3r's dotfiles][m45t3r_dotfiles]
-* [alexwh's dotfiles][alexwh_dotfiles]
-* [azd325's dotfiles][azd325_dotfiles]
-* [wazery's dotfiles][wazery_dotfiles]
-* [thirtythreeforty's dotfiles][thirtythreeforty_dotfiles]
+- **AI-Assisted Development**: Integration with GitHub Copilot and Copilot Chat.
+- **Auto-Completion & Snippets**: Seamless coding experience with nvim-cmp and snippet support.
+- **Syntax Highlighting**: Enhanced syntax support using Treesitter.
+- **Code Formatting & Linting**: Pre-configured tools to maintain code quality.
+- **Debugger Integration**: Debugging setup with nvim-dap.
+- **LSP Support**: Language server configurations for multiple languages using mason.
+- **Git Diff View**: Enhanced Git operations with diffview.nvim.
+- **File Browsing**: Efficient file navigation using telescope.nvim.
+- **UI Enhancements**: Custom dashboard, status line, onedark color scheme, and indent guides.
 
-And there are about [700 more here][dotbot-users].
+### 📦 Major Plugins
 
-If you're using Dotbot and you'd like to include a link to your dotfiles here
-as an inspiration to others, please submit a pull request.
+- [Lazy.nvim](https://github.com/folke/lazy.nvim) - Plugin manager for Neovim.
+- [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) - Syntax highlighting and code structure parsing.
+- [mason.nvim](https://github.com/williamboman/mason.nvim) - Portable package manager for Neovim.
+- [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) - Completion engine plugin.
+- [nvim-dap](https://github.com/mfussenegger/nvim-dap) - Debugging integration.
+- [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) - Fuzzy finder for files and more.
+- [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) - LSP configurations.
+- [diffview.nvim](https://github.com/sindrets/diffview.nvim) - Git diff viewer.
+- [conform.nvim](https://github.com/stevearc/conform.nvim) - Formatter.
+- [nvim-lint](https://github.com/mfussenegger/nvim-lint) - Linter.
 
-License
--------
+## 🔧 Installation and Setup
 
-This software is hereby released into the public domain. That means you can do
-whatever you want with it without restriction. See `LICENSE.md` for details.
+1. Clone this repository:
 
-That being said, I would appreciate it if you could maintain a link back to
-Dotbot (or this repository) to help other people discover Dotbot.
+   ```bash
+   git clone -b develop https://github.com/klee1611/dotfiles.git ~/.dotfiles
+   ```
 
-[dotbot]: https://github.com/anishathalye/dotbot
-[fork]: https://github.com/anishathalye/dotfiles_template/fork
-[template]: https://github.com/anishathalye/dotfiles_template/generate
-[anishathalye_dotfiles]: https://github.com/anishathalye/dotfiles
-[csivanich_dotfiles]: https://github.com/csivanich/dotfiles
-[m45t3r_dotfiles]: https://github.com/m45t3r/dotfiles
-[alexwh_dotfiles]: https://github.com/alexwh/dotfiles
-[azd325_dotfiles]: https://github.com/Azd325/dotfiles
-[wazery_dotfiles]: https://github.com/wazery/dotfiles
-[thirtythreeforty_dotfiles]: https://github.com/thirtythreeforty/dotfiles
-[dotbot-users]: https://github.com/anishathalye/dotbot/wiki/Users
+2. Install and set up:
+
+   ```bash
+   cd ~/.dotfiles
+   ./install.sh
+   ```
+
+3. Open Neovim and install plugins:
+
+   ```bash
+   nvim
+   :Lazy install
+   ```
+
+## ⚙️  Usage
+
+After installation, the development environment will be configured with essential tools for:
+
+- Enhanced code editing with Neovim.
+- Shell productivity improvements.
+- Streamlined Git operations.
+
+## 🧑‍💻 Contributing
+
+Contributions are welcome! If you have ideas for improvement, feel free to fork this repo and submit a pull request.
+
+## 📜 License
+
+This project is open-source and available under the MIT License.
+
+## 💬 Feedback & Support
+
+For issues, questions, or suggestions, please open an issue on GitHub or reach out directly through the repository.
+
+Happy coding!
+
