@@ -1,5 +1,5 @@
 # Dotfiles for Development Environment 🛠️
-![CI Tests](https://github.com/klee1611/dotfiles/actions/workflows/ci.yml/badge.svg)
+![CI Tests](https://github.com/klee1611/dotfiles/actions/workflows/CI.yml/badge.svg)
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)
 
 Welcome to my dotfiles repository! This project serves as a personal and shareable configuration setup for various development tools and environments. It aims to help developers quickly set up a consistent and efficient development environment.
