@@ -26,10 +26,11 @@ check_installed() {
 }
 
 main() {
-    brew_pkg_list=( "git" "nvm" "pyenv" "nvim" "pnpm" "asdf" "curl" "pipx" "wget" )
+    brew_pkg_list=( "git" "nvm" "pyenv" "nvim" "pnpm" "asdf" "curl" "pipx" "wget" "rg")
     for pkg in "${brew_pkg_list[@]}"; do
         check_and_install_brew $pkg
     done
+	mkdir ~/.nvm
 
     check_and_install_brew "kitty" true
     if [ ! -d ~/.config/kitty/kitty-themes ]; then
