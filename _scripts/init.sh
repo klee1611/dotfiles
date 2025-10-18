@@ -30,7 +30,7 @@ main() {
     for pkg in "${brew_pkg_list[@]}"; do
         check_and_install_brew $pkg
     done
-	mkdir ~/.nvm
+	mkdir -p ~/.nvm
 
     check_and_install_brew "kitty" true
     if [ ! -d ~/.config/kitty/kitty-themes ]; then
