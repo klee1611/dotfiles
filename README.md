@@ -99,7 +99,7 @@ This repository automates the setup of a modern development environment with:
 1. **Clone this repository:**
 
    ```bash
-   git clone https://github.com/klee1611/dotFiles.git 
+   git clone https://github.com/klee1611/dotfiles.git 
    cd dotfiles
    ```
 
