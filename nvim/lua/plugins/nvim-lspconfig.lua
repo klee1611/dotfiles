@@ -49,7 +49,7 @@ return {
 						},
 					},
 				}
-				vim.lsp.enable(lsp)
+				vim.lsp.start(vim.lsp.config[lsp])
 			end
 		end,
 	},
