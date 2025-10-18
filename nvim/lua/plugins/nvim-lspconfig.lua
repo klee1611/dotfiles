@@ -31,17 +31,14 @@ return {
 				vim.keymap.set("n", "<space>df", vim.diagnostic.goto_next, bufopts)
 			end
 
-			local lspconfig = require("lspconfig")
 			local capabilities =
 				require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 			capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-			-- local capabilities = require('cmp_nvim_lsp').default_capabilities()
-			--
 			for _, lsp in pairs(ensure_installed) do
-				lspconfig[lsp].setup({
-					format = { enable = true },
-					autoFixOnSave = true,
+				vim.lsp.config[lsp] = {
+					cmd = vim.lsp.config[lsp] and vim.lsp.config[lsp].cmd or { lsp },
+					root_dir = vim.fs.root(0, { ".git" }),
 					on_attach = on_attach,
 					capabilities = capabilities,
 					settings = {
@@ -51,7 +48,8 @@ return {
 							},
 						},
 					},
-				})
+				}
+				vim.lsp.enable(lsp)
 			end
 		end,
 	},
