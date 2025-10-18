@@ -38,7 +38,7 @@ This repository automates the setup of a modern development environment with:
 ### Architecture
 - **Modular Lua Configuration**: Well-organized plugin structure in `nvim/lua/plugins/`
 - **Plugin Manager**: [Lazy.nvim](https://github.com/folke/lazy.nvim) for efficient plugin management
-- **Modern LSP**: Uses Neovim 0.11+ native `vim.lsp.config` API (not deprecated lspconfig)
+- **Modern LSP**: Uses Neovim 0.11+ native vim.lsp APIs, while keeping nvim-lspconfig for Mason integration and server defaults.
 
 ### Key Features
 
