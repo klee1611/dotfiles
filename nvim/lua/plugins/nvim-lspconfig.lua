@@ -31,23 +31,31 @@ return {
 				vim.keymap.set("n", "<space>df", vim.diagnostic.goto_next, bufopts)
 			end
 
+			local lspconfig = require("lspconfig")
 			local capabilities =
 				require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 			capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 			for _, lsp in pairs(ensure_installed) do
+				-- Get default config from lspconfig
+				local default_config = lspconfig[lsp].document_config.default_config
+				
+				-- Merge with custom config, prioritizing lspconfig defaults
 				vim.lsp.config[lsp] = {
-					cmd = vim.lsp.config[lsp] and vim.lsp.config[lsp].cmd or { lsp },
-					root_dir = vim.fs.root({ ".git" })(vim.api.nvim_buf_get_name(0)),
+					cmd = default_config.cmd,
+					filetypes = default_config.filetypes,
+					root_dir = function(fname)
+						return vim.fs.root(fname, default_config.root_dir.markers or { ".git" })
+					end,
 					on_attach = on_attach,
 					capabilities = capabilities,
-					settings = {
+					settings = vim.tbl_deep_extend("force", default_config.settings or {}, {
 						Lua = {
 							diagnostics = {
 								globals = { "vim" },
 							},
 						},
-					},
+					}),
 				}
 				vim.lsp.start(vim.lsp.config[lsp])
 			end
