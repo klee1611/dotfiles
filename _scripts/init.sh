@@ -59,8 +59,7 @@ main() {
     pyenv global 3.10.0
 
     echo "Installing pipx and poetry..."
-    pipx ensurepath
-    pipx install poetry
+	curl -sSL https://install.python-poetry.org | python3 -
 
     return 0
 }
