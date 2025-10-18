@@ -38,7 +38,7 @@ return {
 			for _, lsp in pairs(ensure_installed) do
 				vim.lsp.config[lsp] = {
 					cmd = vim.lsp.config[lsp] and vim.lsp.config[lsp].cmd or { lsp },
-					root_dir = vim.fs.root(0, { ".git" }),
+					root_dir = vim.fs.root({ ".git" })(vim.api.nvim_buf_get_name(0)),
 					on_attach = on_attach,
 					capabilities = capabilities,
 					settings = {
