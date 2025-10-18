@@ -44,9 +44,7 @@ return {
 				vim.lsp.config[lsp] = {
 					cmd = default_config.cmd,
 					filetypes = default_config.filetypes,
-					root_dir = function(fname)
-						return vim.fs.root(fname, default_config.root_dir.markers or { ".git" })
-					end,
+					root_dir = default_config.root_dir,
 					on_attach = on_attach,
 					capabilities = capabilities,
 					settings = vim.tbl_deep_extend("force", default_config.settings or {}, {
