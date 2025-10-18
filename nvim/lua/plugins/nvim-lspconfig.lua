@@ -31,27 +31,27 @@ return {
 				vim.keymap.set("n", "<space>df", vim.diagnostic.goto_next, bufopts)
 			end
 
-			local lspconfig = require("lspconfig")
 			local capabilities =
 				require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 			capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-			-- local capabilities = require('cmp_nvim_lsp').default_capabilities()
-			--
+			-- Configure LSP servers using native vim.lsp.config
+			-- Note: nvim-lspconfig is kept as dependency for Mason integration
 			for _, lsp in pairs(ensure_installed) do
-				lspconfig[lsp].setup({
-					format = { enable = true },
-					autoFixOnSave = true,
+				-- Use vim.lsp.config directly - it has built-in defaults for known servers
+				-- Only override what we need
+				vim.lsp.config[lsp] = vim.tbl_deep_extend("force", vim.lsp.config[lsp] or {}, {
 					on_attach = on_attach,
 					capabilities = capabilities,
-					settings = {
+					settings = lsp == "lua_ls" and {
 						Lua = {
 							diagnostics = {
 								globals = { "vim" },
 							},
 						},
-					},
+					} or {},
 				})
+				vim.lsp.enable(lsp)
 			end
 		end,
 	},

@@ -54,7 +54,6 @@ return {
 	-- telescope
 	{
 		"nvim-telescope/telescope.nvim",
-		branch = "0.1.x",
 		dependencies = { "nvim-lua/plenary.nvim" },
 	},
 	-- file browser extension for telescope
@@ -92,19 +91,27 @@ return {
 		},
 		-- See Commands section for default commands if you want to lazy load on them
 	},
-	-- Tagbar
+	-- Aerial code outline window
 	{
-		"simrat39/symbols-outline.nvim",
-		config = true,
+		'stevearc/aerial.nvim',
+		opts = {
+			resize_to_content = true,
+		},
+		-- Optional dependencies
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+			"nvim-tree/nvim-web-devicons"
+		},
 	},
 	-- markdown preview
 	{
-		"iamcco/markdown-preview.nvim",
-		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-		ft = { "markdown" },
-		build = function()
-			vim.fn["mkdp#util#install"]()
-		end,
+		"OXY2DEV/markview.nvim",
+		ft = { "markdown", "codecompanion" },
+		opts = {
+			preview = {
+				filetypes = { "md", "markdown", "codecompanion" },
+			},
+		},
 	},
 	-- git
 	{

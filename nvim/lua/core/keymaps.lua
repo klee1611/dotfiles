@@ -17,8 +17,8 @@ map('n', '<F2>', ':NvimTreeToggle<CR>')        -- open/close
 map('n', '<leader>f', ':NvimTreeRefresh<CR>')  -- refresh
 map('n', '<leader>n', ':NvimTreeFindFile<CR>') -- search file
 
--- SymbolsOutline
-map('n', '<F3>', ':SymbolsOutline<CR>')
+-- Aerial code outline window
+map('n', '<F3>', ':AerialToggle<CR>')
 
 -- Telescope
 map('n', '<leader>ff', ':Telescope file_browser<CR>')
