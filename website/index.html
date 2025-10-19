@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dotfiles - Modern Development Environment Setup</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="container">
+                <h1 class="logo">🛠️ Dotfiles</h1>
+                <ul class="nav-links">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#installation">Installation</a></li>
+                    <li><a href="#configuration">Configuration</a></li>
+                    <li><a href="https://github.com/klee1611/dotfiles" target="_blank" class="github-link">
+                        <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                        </svg>
+                        GitHub
+                    </a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2 class="hero-title">Automated Development Environment Setup</h2>
+                <p class="hero-subtitle">Bootstrap your complete dev workspace with Neovim, Zsh, Tmux, and Kitty in minutes</p>
+                <div class="hero-badges">
+                    <img src="https://github.com/klee1611/dotfiles/actions/workflows/CI.yml/badge.svg" alt="CI Tests">
+                    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square" alt="PRs Welcome">
+                </div>
+                <div class="hero-buttons">
+                    <a href="#installation" class="btn btn-primary">Get Started</a>
+                    <a href="https://github.com/klee1611/dotfiles" target="_blank" class="btn btn-secondary">View on GitHub</a>
+                </div>
+            </div>
+            <div class="hero-code">
+                <pre><code>git clone https://github.com/klee1611/dotfiles.git
+cd dotfiles
+./install.sh</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Features</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Automated Installation</h3>
+                    <p>Single command setup for all development tools and dependencies</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💻</div>
+                    <h3>Neovim IDE</h3>
+                    <p>Modern setup with LSP, debugging, auto-completion, and AI assistance via GitHub Copilot</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🐚</div>
+                    <h3>Shell Environment</h3>
+                    <p>Zsh with oh-my-zsh, syntax highlighting, autosuggestions, and plugins</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3>Terminal Config</h3>
+                    <p>Kitty terminal with themes and GPU acceleration for smooth performance</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔧</div>
+                    <h3>Version Managers</h3>
+                    <p>Automated setup of Python (pyenv), Node.js (nvm), and Go (gvm)</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔗</div>
+                    <h3>Symlink Management</h3>
+                    <p>Dotbot-based automatic symlinking of configuration files</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="tools">
+        <div class="container">
+            <h2 class="section-title">Development Tools Included</h2>
+            <div class="tools-grid">
+                <div class="tool-category">
+                    <h3>Language Environments</h3>
+                    <ul>
+                        <li><strong>Go 1.23</strong> - Via gvm with complete bootstrap chain</li>
+                        <li><strong>Python 3.10</strong> - Via pyenv with poetry</li>
+                        <li><strong>Node.js</strong> - Via nvm</li>
+                    </ul>
+                </div>
+                <div class="tool-category">
+                    <h3>Editor Features</h3>
+                    <ul>
+                        <li><strong>LSP Support</strong> - Bash, C/C++, Python, Rust, Go, Lua, TS/JS</li>
+                        <li><strong>AI Coding</strong> - GitHub Copilot integration</li>
+                        <li><strong>Auto-completion</strong> - nvim-cmp with multiple sources</li>
+                        <li><strong>Debugging</strong> - nvim-dap for multiple languages</li>
+                    </ul>
+                </div>
+                <div class="tool-category">
+                    <h3>Shell Plugins</h3>
+                    <ul>
+                        <li><strong>zsh-completions</strong> - Enhanced tab completion</li>
+                        <li><strong>zsh-syntax-highlighting</strong> - Command highlighting</li>
+                        <li><strong>zsh-autosuggestions</strong> - Smart suggestions</li>
+                        <li><strong>autojump</strong> - Fast directory navigation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="installation" class="installation">
+        <div class="container">
+            <h2 class="section-title">Quick Installation</h2>
+            <div class="installation-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Clone the Repository</h3>
+                        <pre><code>git clone https://github.com/klee1611/dotfiles.git
+cd dotfiles</code></pre>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Run Installation Script</h3>
+                        <pre><code>./install.sh</code></pre>
+                        <p>This will install Homebrew packages, set up language version managers, install dependencies, and symlink all configuration files.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Restart Shell</h3>
+                        <pre><code>source ~/.zshrc</code></pre>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Open Neovim</h3>
+                        <pre><code>nvim</code></pre>
+                        <p>Lazy.nvim will automatically install all plugins on first launch. Then run <code>:Mason</code> to install LSP servers.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="configuration" class="configuration">
+        <div class="container">
+            <h2 class="section-title">Neovim Configuration</h2>
+            <div class="config-grid">
+                <div class="config-section">
+                    <h3>Key Mappings</h3>
+                    <p>Leader key: <code>Space</code></p>
+                    <div class="keybind-group">
+                        <h4>LSP Commands</h4>
+                        <ul class="keybind-list">
+                            <li><kbd>gD</kbd> - Go to declaration</li>
+                            <li><kbd>gd</kbd> - Go to definition</li>
+                            <li><kbd>K</kbd> - Hover documentation</li>
+                            <li><kbd>gi</kbd> - Go to implementation</li>
+                            <li><kbd>Space</kbd> + <kbd>rn</kbd> - Rename symbol</li>
+                            <li><kbd>gr</kbd> - Find references</li>
+                            <li><kbd>Space</kbd> + <kbd>f</kbd> - Format code</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="config-section">
+                    <h3>Major Plugins</h3>
+                    <ul class="plugin-list">
+                        <li><strong>Lazy.nvim</strong> - Plugin manager</li>
+                        <li><strong>nvim-treesitter</strong> - Syntax highlighting</li>
+                        <li><strong>mason.nvim</strong> - LSP/DAP installer</li>
+                        <li><strong>nvim-lspconfig</strong> - LSP configurations</li>
+                        <li><strong>nvim-cmp</strong> - Completion engine</li>
+                        <li><strong>nvim-dap</strong> - Debugging</li>
+                        <li><strong>telescope.nvim</strong> - Fuzzy finder</li>
+                        <li><strong>conform.nvim</strong> - Code formatting</li>
+                        <li><strong>nvim-lint</strong> - Linting</li>
+                        <li><strong>github-copilot</strong> - AI assistance</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="structure">
+        <div class="container">
+            <h2 class="section-title">Project Structure</h2>
+            <div class="structure-content">
+                <pre><code>dotfiles/
+├── _scripts/           # Installation and setup scripts
+│   ├── init.sh        # Main system setup
+│   ├── zsh_init.sh    # Oh-my-zsh setup
+│   └── nvim_cleanup.sh # Neovim cache cleanup
+├── nvim/              # Neovim configuration
+│   ├── init.lua       # Entry point
+│   └── lua/
+│       ├── core/      # Core settings
+│       └── plugins/   # Plugin configurations
+├── zsh/               # Zsh configuration files
+├── tmux/              # Tmux configuration
+├── dotbot/            # Symlink management
+├── install.conf.yaml  # Dotbot configuration
+└── install.sh         # Main installation script</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Get Started?</h2>
+            <p>Set up your complete development environment in minutes</p>
+            <div class="cta-buttons">
+                <a href="https://github.com/klee1611/dotfiles" target="_blank" class="btn btn-primary">View on GitHub</a>
+                <a href="https://github.com/klee1611/dotfiles/issues" target="_blank" class="btn btn-secondary">Report an Issue</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-support">
+                <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="klee1611" data-color="#FFDD00" data-emoji=""  data-font="Bree" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff" ></script>
+            </div>
+            <p>&copy; 2024 Dotfiles Project. Open-source under the MIT License.</p>
+            <p>Made with ❤️ for developers</p>
+        </div>
+    </footer>
+</body>
+</html>

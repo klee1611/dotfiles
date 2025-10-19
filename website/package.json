@@ -1,0 +1,22 @@
+{
+  "name": "dotfiles-website",
+  "version": "1.0.0",
+  "description": "Professional website for dotfiles development environment setup",
+  "main": "index.html",
+  "scripts": {
+    "deploy": "gh-pages -d .",
+    "serve": "python3 -m http.server 8000"
+  },
+  "keywords": [
+    "dotfiles",
+    "neovim",
+    "zsh",
+    "tmux",
+    "development-environment"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
+  }
+}

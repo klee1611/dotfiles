@@ -242,5 +242,13 @@ For issues, questions, or suggestions:
 - Check existing issues for solutions
 - Review the troubleshooting section above
 
+## ☕ Support This Project
+
+If you find this project helpful, consider supporting its development:
+
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/yellow_img.png)](https://www.buymeacoffee.com/klee1611)
+
+Or visit: https://www.buymeacoffee.com/klee1611
+
 Happy coding! 🚀
 
