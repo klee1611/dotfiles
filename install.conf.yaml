@@ -9,8 +9,6 @@
 - link:
     ~/.tmux.conf: tmux/tmux.conf
     ~/.tmux.conf.local: tmux/tmux.conf.local
-    ~/.config/kitty/kitty.conf: kitty.conf 
-
     ~/.config/nvim/:
       glob: true
       path: nvim/*

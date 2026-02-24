@@ -32,13 +32,6 @@ main() {
     done
 	mkdir -p ~/.nvm
 
-    check_and_install_brew "kitty" true
-    if [ ! -d ~/.config/kitty/kitty-themes ]; then
-        mkdir -p ~/.config/kitty/kitty-themes
-        THEME=https://raw.githubusercontent.com/dexpota/kitty-themes/master/themes/Apprentice.conf
-        wget "$THEME" -P ~/.config/kitty/kitty-themes/themes
-    fi
-
     echo "Checking if gvm is installed..."
     if [ $(check_installed "gvm" "gvm") -eq 0 ]; then
         echo "Installing gvm and go..."
