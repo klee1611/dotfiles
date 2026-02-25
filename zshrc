@@ -30,19 +30,26 @@ else
   HOMEBREW_PREFIX="$(brew --prefix 2>/dev/null)"
 fi
 
-# NVM — lazy-load to avoid ~500ms startup penalty.
-# nvm, node, npm, npx, and yarn will trigger a one-time load on first use.
+# NVM — add default node's bin to PATH immediately so node/npm/npx are
+# available to all processes (including editors like nvim). The full NVM
+# shell integration is lazy-loaded on first use of the 'nvm' command.
 export NVM_DIR="$HOME/.nvm"
+if [[ -f "$NVM_DIR/alias/default" ]]; then
+  _nvm_ver=$(cat "$NVM_DIR/alias/default")
+  # Resolve indirect aliases (e.g. lts/* -> lts/iron -> v20.x.x)
+  while [[ -f "$NVM_DIR/alias/$_nvm_ver" ]]; do
+    _nvm_ver=$(cat "$NVM_DIR/alias/$_nvm_ver")
+  done
+  [[ -d "$NVM_DIR/versions/node/$_nvm_ver/bin" ]] && \
+    export PATH="$NVM_DIR/versions/node/$_nvm_ver/bin:$PATH"
+  unset _nvm_ver
+fi
 _load_nvm() {
-  unset -f nvm node npm npx yarn
+  unset -f nvm
   [ -s "${HOMEBREW_PREFIX}/opt/nvm/nvm.sh" ] && . "${HOMEBREW_PREFIX}/opt/nvm/nvm.sh"
   [ -s "${HOMEBREW_PREFIX}/opt/nvm/etc/bash_completion.d/nvm" ] && . "${HOMEBREW_PREFIX}/opt/nvm/etc/bash_completion.d/nvm"
 }
-nvm()  { _load_nvm; nvm  "$@"; }
-node() { _load_nvm; node "$@"; }
-npm()  { _load_nvm; npm  "$@"; }
-npx()  { _load_nvm; npx  "$@"; }
-yarn() { _load_nvm; yarn "$@"; }
+nvm() { _load_nvm; nvm "$@"; }
 
 # pyenv — prepend shims directly instead of eval "$(pyenv init --path)"
 export PYENV_ROOT="$HOME/.pyenv"
