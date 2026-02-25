@@ -354,12 +354,22 @@ bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "pb
 #set -g status-keys vi
 #set -g mode-keys vi
 
-# replace C-b by C-a instead of using both prefixes
-# set -gu prefix2
-# unbind C-a
-# unbind C-b
-# set -g prefix C-a
-# bind C-a send-prefix
+# replace C-b by C-Space
+# To use Caps Lock as the modifier, go to:
+#   macOS System Settings > Keyboard > Keyboard Shortcuts > Modifier Keys
+#   and remap Caps Lock → Control.
+# Then Caps Lock + Space becomes your tmux prefix.
+set -gu prefix2
+unbind C-b
+set -g prefix C-Space
+bind C-Space send-prefix
+
+# navigate panes with arrow keys (no prefix required)
+# use Option (Alt) + arrow key to switch panes directly
+bind -n M-Left  select-pane -L
+bind -n M-Right select-pane -R
+bind -n M-Up    select-pane -U
+bind -n M-Down  select-pane -D
 
 # move status line to top
 #set -g status-position top
