@@ -82,4 +82,5 @@ if [ -f "${HOME}/google-cloud-sdk/completion.zsh.inc" ]; then . "${HOME}/google-
 # Load aliases and functions
 source ~/.config/zsh/aliases
 source ~/.config/zsh/zsh_functions
+source ~/.config/zsh/load_secrets
 
