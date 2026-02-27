@@ -361,15 +361,11 @@ bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "pb
 # set -g prefix C-a
 # bind C-a send-prefix
 
-# fix previous-window: base config rebinds 'p' to paste-buffer, shadowing it.
-# rebind previous/next window to more intuitive keys:
-#   prefix + [ = previous window
-#   prefix + ] = next window
-#   prefix + p = paste-buffer (kept, matching base config intent)
-unbind [
-unbind ]
-bind [ previous-window
-bind ] next-window
+# fix previous-window: base config rebinds 'p' to paste-buffer, shadowing
+# the tmux default. Restore 'p' → previous-window to match the 'n' → next-window default.
+# Paste-buffer is still available via prefix + ] (tmux default).
+unbind p
+bind p previous-window
 
 # move status line to top
 #set -g status-position top
