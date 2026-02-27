@@ -20,7 +20,9 @@ return {
 				markdown = { "prettier" },
 				graphql = { "prettier" },
 				lua = { "stylua" },
-				python = { "isort", "black" },
+				-- ruff_organize_imports: replaces isort
+				-- ruff_format: replaces black (same style, faster)
+				python = { "ruff_organize_imports", "ruff_format" },
 			},
 
 			-- uncomment if format on save is required automatically

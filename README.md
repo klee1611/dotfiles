@@ -146,11 +146,11 @@ Mouse support and vi copy mode are enabled. Selection is copied to the system cl
 |---|---|
 | [lazy.nvim](https://github.com/folke/lazy.nvim) | Plugin manager |
 | [mason.nvim](https://github.com/williamboman/mason.nvim) | LSP/DAP/formatter/linter installer |
-| [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) | LSP server configs |
+| [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) | LSP server configs (basedpyright, gopls, lua_ls, …) |
 | [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) | Completion engine |
 | [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) | Syntax highlighting |
-| [conform.nvim](https://github.com/stevearc/conform.nvim) | Formatting (prettier, stylua, black, isort) |
-| [nvim-lint](https://github.com/mfussenegger/nvim-lint) | Linting (pylint, eslint_d) |
+| [conform.nvim](https://github.com/stevearc/conform.nvim) | Formatting (prettier, stylua, ruff) |
+| [nvim-lint](https://github.com/mfussenegger/nvim-lint) | Linting (ruff, mypy, eslint_d) |
 | [nvim-dap](https://github.com/mfussenegger/nvim-dap) | Debugger |
 | [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) | Fuzzy finder |
 | [nvim-tree](https://github.com/nvim-tree/nvim-tree.lua) | File explorer |
