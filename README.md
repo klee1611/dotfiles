@@ -90,7 +90,7 @@ API keys and tokens are stored in **macOS Keychain** and exported automatically 
 ### Setup
 
 ```zsh
-secret-set KAGGLE_KEY your_value
+secret-set KAGGLE_API_TOKEN your_value
 secret-set AWS_ACCESS_KEY_ID your_value
 secret-set AWS_SECRET_ACCESS_KEY your_value
 ```
