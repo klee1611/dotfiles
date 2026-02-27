@@ -41,3 +41,13 @@ map('n', 't7', ':tabn 7<CR>')      -- seventh tab
 map('n', 't8', ':tabn 8<CR>')      -- eighth tab
 map('n', 't9', ':tabn 9<CR>')      -- ninth tab
 map('n', 't0', ':tabn 10<CR>')     -- tenth tab
+
+-- Terminal
+map('n', '<leader>t', ':w<CR>:split | terminal <CR>i')
+
+-- Resize splits (useful for adjusting the terminal split height/width)
+-- Works in normal mode; in terminal mode press <C-\><C-n> first to escape
+map('n', '<C-Up>',    ':resize +2<CR>')           -- increase split height
+map('n', '<C-Down>',  ':resize -2<CR>')           -- decrease split height
+map('n', '<C-Left>',  ':vertical resize -2<CR>')  -- decrease split width
+map('n', '<C-Right>', ':vertical resize +2<CR>')  -- increase split width

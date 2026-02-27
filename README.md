@@ -137,6 +137,8 @@ Mouse support and vi copy mode are enabled. Selection is copied to the system cl
 | `,fb` | Buffers (Telescope) |
 | `,fh` | Help tags (Telescope) |
 | `,t` | Open terminal in split |
+| `Ctrl+↑ / ↓` | Increase / decrease split height |
+| `Ctrl+← / →` | Increase / decrease split width |
 | `tc` / `tn` / `tp` / `tk` | New / next / previous / close tab |
 | `t1`–`t9`, `t0` | Jump to tab 1–10 |
 
