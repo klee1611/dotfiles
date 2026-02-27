@@ -1,7 +1,5 @@
-# Use mvim as vim
-if [ -f '/Applications/MacVim.app/Contents/bin/mvim' ]; then
-    alias vim="/Applications/MacVim.app/Contents/bin/mvim -v"
-fi
+alias vi='nvim'
+alias vim='nvim'
 
 # Get local IP
 alias myip="curl http://ipecho.net/plain; echo"

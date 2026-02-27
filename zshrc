@@ -20,6 +20,7 @@ fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 source $ZSH/oh-my-zsh.sh
 
 export EDITOR='nvim'
+export VISUAL='nvim'
 
 # Detect Homebrew prefix without spawning a subprocess
 if [[ -x /opt/homebrew/bin/brew ]]; then
