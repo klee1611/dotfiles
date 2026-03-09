@@ -12,6 +12,7 @@ plugins=(
 	zsh-completions
 	zsh-syntax-highlighting
 	zsh-autosuggestions
+	autoupdate
 	git
 	autojump
 	asdf
@@ -25,6 +26,7 @@ export VISUAL='nvim'
 # Detect Homebrew prefix without spawning a subprocess
 if [[ -x /opt/homebrew/bin/brew ]]; then
   HOMEBREW_PREFIX="/opt/homebrew"       # Apple Silicon
+  eval "$(/opt/homebrew/bin/brew shellenv)"
 elif [[ -x /usr/local/bin/brew ]]; then
   HOMEBREW_PREFIX="/usr/local"          # Intel
 else
