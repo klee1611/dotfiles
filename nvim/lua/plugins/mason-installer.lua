@@ -16,6 +16,7 @@ return {
 		-- install mason packages
 		mason_tool_installer.setup({
 			ensure_installed = ensure_installed,
+			run_on_start = true,
 		})
 	end,
 }

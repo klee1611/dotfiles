@@ -3,7 +3,7 @@ local function map(mode, lhs, rhs, opts)
   if opts then
     options = vim.tbl_extend('force', options, opts)
   end
-  vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+  vim.keymap.set(mode, lhs, rhs, options)
 end
 
 
@@ -43,7 +43,13 @@ map('n', 't9', ':tabn 9<CR>')      -- ninth tab
 map('n', 't0', ':tabn 10<CR>')     -- tenth tab
 
 -- Terminal
-map('n', '<leader>t', ':w<CR>:split | terminal <CR>i')
+map('n', '<leader>t', function()
+    if vim.bo.buftype == "" then
+        vim.cmd("silent! w")
+    end
+    vim.cmd("split | terminal")
+    vim.cmd("startinsert")
+end)
 
 -- Resize splits (useful for adjusting the terminal split height/width)
 -- Works in normal mode; in terminal mode press <C-\><C-n> first to escape

@@ -4,7 +4,7 @@ local common = {
             "bashls", "clangd", "denols", "basedpyright", "rust_analyzer",
             "gopls", "lua_ls", "elixirls", "eslint",
         },
-        dap = { "node2" },
+        dap = { "js-debug-adapter" },
         formatter = { "prettier", "stylua", "ruff" },
         linter = { "ruff", "mypy", "eslint_d" },
     }

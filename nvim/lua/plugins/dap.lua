@@ -30,32 +30,35 @@ return {
 		local dap = require('dap')
 		local dapui = require("dapui")
 
-		-- Node.js Debug Adapter Configuration
-		dap.adapters.node2 = {
-			type = 'executable',
-			command = 'node',
-			args = { vim.fn.stdpath("data") .. '/mason/packages/node-debug2-adapter/out/src/nodeDebug.js' },
+		-- Modern JS/TS Debug Adapter (js-debug-adapter)
+		dap.adapters["pwa-node"] = {
+			type = "server",
+			host = "localhost",
+			port = "${port}",
+			executable = {
+				command = "node",
+				args = { vim.fn.stdpath("data") .. "/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js", "${port}" },
+			}
 		}
 
-		dap.configurations.javascript = {
-			{
-				type = 'node2',
-				request = 'launch',
-				name = 'Launch File',
-				program = '${file}', -- Launch the current file
-				cwd = vim.fn.getcwd(),
-				sourceMaps = true,
-				protocol = 'inspector',
-				console = 'integratedTerminal',
-			},
-			{
-				type = 'node2',
-				request = 'attach',
-				name = 'Attach to Process',
-				processId = require('dap.utils').pick_process,
-				cwd = vim.fn.getcwd(),
-			},
-		}
+		for _, language in ipairs({ "javascript", "typescript", "javascriptreact", "typescriptreact" }) do
+			dap.configurations[language] = {
+				{
+					type = "pwa-node",
+					request = "launch",
+					name = "Launch File",
+					program = "${file}",
+					cwd = "${workspaceFolder}",
+				},
+				{
+					type = "pwa-node",
+					request = "attach",
+					name = "Attach to Process",
+					processId = require('dap.utils').pick_process,
+					cwd = "${workspaceFolder}",
+				}
+			}
+		end
 
 		-- DAP UI configuration
 		dapui.setup({

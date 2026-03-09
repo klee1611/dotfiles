@@ -22,6 +22,35 @@ return {
 			},
 		})
 
+		-- Configure mypy to find imports in .venv from uv:
+		local mypy = lint.linters.mypy
+		local venv_python = vim.fn.getcwd() .. "/.venv/bin/python"
+		if vim.fn.executable(venv_python) == 1 then
+			mypy.args = {
+				"--ignore-missing-imports",
+				"--python-executable",
+				venv_python,
+				"--show-column-numbers",
+				"--show-error-end",
+				"--hide-error-codes",
+				"--hide-error-context",
+				"--no-color-output",
+				"--no-error-summary",
+				"--no-pretty",
+			}
+		else
+			mypy.args = {
+				"--ignore-missing-imports",
+				"--show-column-numbers",
+				"--show-error-end",
+				"--hide-error-codes",
+				"--hide-error-context",
+				"--no-color-output",
+				"--no-error-summary",
+				"--no-pretty",
+			}
+		end
+
 		lint.linters_by_ft = {
 			javascript = { "eslint_d" },
 			typescript = { "eslint_d" },

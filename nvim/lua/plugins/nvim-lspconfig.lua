@@ -17,6 +17,25 @@ return {
 				ensure_installed = ensure_installed,
 			})
 
+			-- Configure diagnostics
+			vim.diagnostic.config({
+				virtual_text = {
+					prefix = "■ ", -- Error marker
+				},
+				signs = true,
+				update_in_insert = true,
+				underline = true,
+				severity_sort = true,
+				float = {
+					focusable = false,
+					style = "minimal",
+					border = "rounded",
+					source = "always",
+					header = "",
+					prefix = "",
+				},
+			})
+
 			local on_attach = function()
 				local bufopts = { noremap = true, silent = true, buffer = 0 }
 				vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
@@ -49,7 +68,19 @@ return {
 								globals = { "vim" },
 							},
 						},
-					} or {},
+					} or (lsp == "basedpyright" and {
+						basedpyright = {
+							analysis = {
+								autoSearchPaths = true,
+								useLibraryCodeForTypes = true,
+								diagnosticMode = "openFilesOnly",
+								typeCheckingMode = "standard",
+							},
+						},
+						python = {
+							pythonPath = vim.fn.getcwd() .. "/.venv/bin/python"
+						}
+					} or {}),
 				})
 				vim.lsp.enable(lsp)
 			end
