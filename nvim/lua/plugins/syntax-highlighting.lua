@@ -4,7 +4,7 @@ return {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
         config = function()
-            local configs = require 'nvim-treesitter.configs'
+            local configs = require 'nvim-treesitter'
             configs.setup({
                 ensure_installed = {
                     "lua", "vim", "vimdoc", "query",
@@ -13,7 +13,7 @@ return {
                     "python", "go", "rust", "c", "cpp",
                     "bash", "markdown", "markdown_inline",
                     "yaml", "toml", "sql",
-                    "elixir", "heex",
+                    "elixir", "heex", "latex",
                 },
                 ignore_install = { "ipkg" },
                 highlight = {
