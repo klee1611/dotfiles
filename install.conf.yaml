@@ -21,12 +21,12 @@
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
     - 
-      command: sh -c "./_scripts/init.sh"
+      command: sh -c 'if [ "${DOTFILES_SKIP_BOOTSTRAP:-0}" = "1" ]; then echo "Skipping dev package bootstrap"; else ./_scripts/init.sh; fi'
       stdout: true
       stderr: true
       description: Install dev packages
     -
-      command: sh -c "./_scripts/zsh_init.sh"
+      command: sh -c 'if [ "${DOTFILES_SKIP_BOOTSTRAP:-0}" = "1" ]; then echo "Skipping zsh bootstrap"; else ./_scripts/zsh_init.sh; fi'
       stdout: true
       stderr: true
       description: Setting up oh-my-zsh and plugins

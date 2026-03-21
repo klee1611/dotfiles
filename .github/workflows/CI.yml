@@ -1,20 +1,94 @@
 name: CI
+
 on:
   push:
     branches:
       - master
       - develop
   pull_request:
-    branches: 
+    branches:
       - master
-
   workflow_dispatch:
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  ci:
-    runs-on: macOS-latest
+  validate:
+    name: Validate repository
+    runs-on: ubuntu-latest
     steps:
-      - name: Code checkout
+      - name: Check out repository
         uses: actions/checkout@v4
-      - name: Install
-        run: ./install.sh
+        with:
+          submodules: recursive
+
+      - name: Validate shell scripts
+        run: |
+          bash -n install.sh
+          bash -n _scripts/init.sh
+          bash -n _scripts/zsh_init.sh
+          bash -n _scripts/nvim_cleanup.sh
+
+      - name: Validate Dotbot manifest
+        run: ruby -e 'require "yaml"; YAML.load_file("install.conf.yaml")'
+
+      - name: Validate website package manifest
+        working-directory: website
+        run: npm pkg get name >/dev/null
+
+  smoke-install:
+    name: Smoke test installer
+    runs-on: ubuntu-latest
+    needs: validate
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Run install.sh in a temporary HOME
+        env:
+          DOTFILES_SKIP_BOOTSTRAP: "1"
+        run: |
+          export HOME="$(mktemp -d)"
+          ./install.sh
+
+          test -L "$HOME/.zshrc"
+          test -L "$HOME/.tmux.conf"
+          test -L "$HOME/.tmux.conf.local"
+          test -L "$HOME/.config/nvim/init.lua"
+          test -L "$HOME/.config/zsh/aliases"
+
+  website:
+    name: Validate website
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: website
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: website/package-lock.json
+
+      - name: Install website dependencies
+        run: npm ci
+
+      - name: Smoke test website serve script
+        run: |
+          npm run serve >/tmp/dotfiles-website.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid"' EXIT
+
+          sleep 2
+          curl -fsS http://127.0.0.1:8000/index.html >/dev/null
