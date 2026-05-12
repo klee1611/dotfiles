@@ -25,10 +25,13 @@ export VISUAL='nvim'
 
 # Detect Homebrew prefix without spawning a subprocess
 if [[ -x /opt/homebrew/bin/brew ]]; then
-  HOMEBREW_PREFIX="/opt/homebrew"       # Apple Silicon
+  HOMEBREW_PREFIX="/opt/homebrew"                        # Apple Silicon
   eval "$(/opt/homebrew/bin/brew shellenv)"
 elif [[ -x /usr/local/bin/brew ]]; then
-  HOMEBREW_PREFIX="/usr/local"          # Intel
+  HOMEBREW_PREFIX="/usr/local"                           # Intel Mac
+elif [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]]; then
+  HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"           # Linux / WSL
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 else
   HOMEBREW_PREFIX="$(brew --prefix 2>/dev/null)"
 fi
@@ -58,13 +61,16 @@ nvm() { _load_nvm; nvm "$@"; }
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH"
 
-# GVM — lazy-load; sourced on first use of gvm or go
+# GVM — source default Go environment eagerly so `go` is in PATH for all
+# processes; lazy-load the full gvm script only on first use of gvm command
+if [[ -s "${HOME}/.gvm/environments/default" ]]; then
+  source "${HOME}/.gvm/environments/default"
+fi
 _load_gvm() {
-  unset -f gvm go
+  unset -f gvm
   [[ -s "${HOME}/.gvm/scripts/gvm" ]] && source "${HOME}/.gvm/scripts/gvm"
 }
 gvm() { _load_gvm; gvm "$@"; }
-go()  { _load_gvm; go  "$@"; }
 
 # poetry
 export PATH="${HOME}/.local/bin:${PATH}"
@@ -78,12 +84,19 @@ case ":$PATH:" in
     *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 
-# Google Cloud SDK
+# Google Cloud SDK (macOS default location; on Linux it is the same)
 if [ -f "${HOME}/google-cloud-sdk/path.zsh.inc" ]; then . "${HOME}/google-cloud-sdk/path.zsh.inc"; fi
 if [ -f "${HOME}/google-cloud-sdk/completion.zsh.inc" ]; then . "${HOME}/google-cloud-sdk/completion.zsh.inc"; fi
+# Google Cloud SDK — Snap install path (common on Ubuntu/WSL)
+if [ -f "/snap/google-cloud-cli/current/path.zsh.inc" ]; then . "/snap/google-cloud-cli/current/path.zsh.inc"; fi
+if [ -f "/snap/google-cloud-cli/current/completion.zsh.inc" ]; then . "/snap/google-cloud-cli/current/completion.zsh.inc"; fi
 
 # Load aliases and functions
 source ~/.config/zsh/aliases
 source ~/.config/zsh/zsh_functions
 source ~/.config/zsh/load_secrets
 
+#export CLAUDE_CODE_USE_OPENAI=1
+#export OPENAI_BASE_URL="http://desktop-7fhnqhc:11434/v1"
+#export OPENAI_MODEL=qwen2.5-coder:7b
+#export OPENAI_MODEL=llama3.1

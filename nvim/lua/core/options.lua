@@ -4,7 +4,19 @@ local opt = vim.opt -- Set options (global/buffer/windows-scoped)
 -- General
 -----------------------------------------------------------
 opt.mouse = 'a'                               -- Enable mouse support
-opt.clipboard = 'unnamedplus'                 -- Copy/paste to system clipboard
+
+-- WSL needs win32yank.exe as the clipboard provider; everywhere else use the
+-- system clipboard directly.
+if vim.fn.has('wsl') == 1 then
+  vim.g.clipboard = {
+    name  = 'win32yank',
+    copy  = { ['+'] = 'win32yank.exe -i --crlf', ['*'] = 'win32yank.exe -i --crlf' },
+    paste = { ['+'] = 'win32yank.exe -o --lf',   ['*'] = 'win32yank.exe -o --lf'   },
+    cache_enabled = 0,
+  }
+else
+  opt.clipboard = 'unnamedplus'
+end
 opt.swapfile = false                          -- Don't use swapfile
 opt.completeopt = 'menuone,noinsert,noselect' -- Autocomplete options
 
