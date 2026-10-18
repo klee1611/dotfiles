@@ -4,6 +4,8 @@
 
 Personal dotfiles for macOS — automated setup for Neovim, Zsh, and Tmux using [dotbot](https://github.com/anishathalye/dotbot).
 
+📖 **Docs:** https://klee1611.github.io/dotfiles/
+
 ## 📁 Structure
 
 ```
@@ -23,8 +25,9 @@ dotfiles/
 ├── zsh/
 │   ├── aliases          # Shell aliases
 │   ├── zsh_functions    # Shell functions
-│   ├── load_secrets     # macOS Keychain secrets loader
-│   └── secrets.list     # Env var names to load from Keychain
+│   ├── load_secrets     # Keychain secret helpers (secret-set, secret-run, …)
+│   └── secrets.list     # Names of secrets stored in Keychain
+├── website/             # Documentation site (VitePress)
 ├── dotbot/              # Dotbot submodule
 ├── install.conf.yaml    # Symlink manifest
 └── install.sh           # Entry point
@@ -45,9 +48,9 @@ cd dotfiles
 ```
 
 This will:
-1. Install Homebrew packages (`git`, `nvim`, `nvm`, `pyenv`, `pnpm`, `asdf`, `curl`, `wget`, `ripgrep`, `pipx`)
-2. Install and configure gvm with Go 1.23 (bootstrap chain: 1.4 → 1.17.13 → 1.20.14 → 1.23)
-3. Install Python 3.10 via pyenv and poetry via pipx
+1. Install Homebrew packages (`git`, `nvim`, `nvm`, `pyenv`, `pnpm`, `asdf`, `curl`, `wget`, `ripgrep`, `pipx`, `uv`)
+2. Install gvm and Go 1.25.7 (binary install) as the default
+3. Install Python 3.10.0 via pyenv as the global version
 4. Set up oh-my-zsh with plugins
 5. Symlink all config files via dotbot
 
@@ -136,8 +139,11 @@ Based on [gpakosz/.tmux](https://github.com/gpakosz/.tmux). Customizations in `t
 
 | Keybinding | Action |
 |---|---|
-| `Ctrl+Space` | Prefix (remap Caps Lock → Control in macOS System Settings for ergonomic use) |
-| `Option + ←/→/↑/↓` | Switch panes (no prefix needed) |
+| `Ctrl+b` / `Ctrl+a` | Prefix (either works) |
+| `prefix` `h` `j` `k` `l` | Move between panes |
+| `prefix` `-` / `\|` | Split top-bottom / side-by-side |
+| `prefix` `n` / `p` | Next / previous window (`p` restored from the base config's paste) |
+| `prefix` `P` | Choose a buffer to paste |
 
 Mouse support and vi copy mode are enabled. Selection is copied to the system clipboard via `pbcopy`.
 
@@ -180,7 +186,7 @@ Mouse support and vi copy mode are enabled. Selection is copied to the system cl
 | [nvim-tree](https://github.com/nvim-tree/nvim-tree.lua) | File explorer |
 | [aerial.nvim](https://github.com/stevearc/aerial.nvim) | Code outline |
 | [diffview.nvim](https://github.com/sindrets/diffview.nvim) | Git diff viewer |
-| [copilot.vim](https://github.com/github/copilot.vim) | GitHub Copilot |
+| [copilot.lua](https://github.com/zbirenbaum/copilot.lua) + copilot-cmp | GitHub Copilot in completion |
 | [avante.nvim](https://github.com/yetone/avante.nvim) | AI sidebar; drives Claude Code over ACP |
 
 ### AI: Claude Code via Avante
@@ -260,7 +266,7 @@ Then install LSP servers, formatters, and linters:
 
 **Mason fails to install gopls:**
 ```bash
-go version          # should show go1.23
+go version          # should show go1.25.7
 go install golang.org/x/tools/gopls@latest
 ```
 
