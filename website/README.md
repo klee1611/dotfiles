@@ -1,79 +1,43 @@
-# Dotfiles Website
+# Dotfiles Docs
 
-This directory contains the professional website for the dotfiles project, designed to be published to GitHub Pages.
+Source for the documentation site at https://klee1611.github.io/dotfiles/,
+built with [VitePress](https://vitepress.dev).
 
-## Features
-
-- 🎨 Modern dark-themed design
-- 📱 Fully responsive layout
-- ⚡ Fast and lightweight (no build process needed)
-- 🚀 Easy deployment to GitHub Pages
-
-## Local Development
-
-To preview the website locally:
+## Local development
 
 ```bash
-npm run serve
+npm install
+npm run docs:dev       # live-reloading dev server
+npm run docs:build     # production build into .vitepress/dist
+npm run docs:preview   # serve the production build
 ```
 
-Then open http://localhost:8000 in your browser.
-
-## Deployment to GitHub Pages
-
-1. Make sure you have committed all changes to the website files
-2. Run the deployment command:
-
-```bash
-npm run deploy
-```
-
-This will:
-- Build a deployment from the current directory
-- Push to the `gh-pages` branch
-- Make the website available at: `https://<username>.github.io/dotfiles/`
-
-## File Structure
+## Structure
 
 ```
 website/
-├── index.html      # Main HTML file
-├── styles.css      # Styling
-├── package.json    # Node.js configuration with gh-pages
-└── README.md       # This file
+├── .vitepress/config.mts   # Site config: nav, sidebar, search, base path
+├── index.md                # Home page
+├── guide/                  # Getting started, Zsh, Secrets, Tmux
+├── neovim/                 # Neovim overview, AI, troubleshooting
+└── zh-TW/                  # Traditional Chinese — mirrors the tree above
 ```
 
-## Customization
+Add a page by creating a Markdown file and linking it in `sidebar()` in
+`.vitepress/config.mts`.
 
-### Update Links
-Make sure to update the GitHub repository links in `index.html` if you fork this project:
-- Navigation GitHub link
-- Hero section buttons
-- Footer links
+## Translations
 
-### Styling
-All styles are in `styles.css` with CSS custom properties (variables) at the top for easy theming:
-- `--bg-primary`: Main background color
-- `--accent-primary`: Primary accent color
-- `--text-primary`: Main text color
-- etc.
+English lives at the root; each other language mirrors the same file tree under
+its own folder (`zh-TW/`), so the language menu can switch to the same page.
+When you add or change a page, update every language — the sidebar is shared,
+so a page missing from one language shows a 404 from its sidebar link.
 
-## Technologies Used
+To add a language, copy `zh-TW/`, translate it, and add an entry to `locales`
+in `.vitepress/config.mts` with its nav/sidebar labels and UI strings.
 
-- Pure HTML5 and CSS3
-- CSS Grid and Flexbox for layout
-- CSS Custom Properties for theming
-- `gh-pages` npm module for deployment
+## Deployment
 
-## Support
-
-If you find this project helpful, consider supporting its development:
-
-
-[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/yellow_img.png)](https://www.buymeacoffee.com/klee1611)
-
-Or visit: https://www.buymeacoffee.com/klee1611
-
-## License
-
-MIT
+`.github/workflows/docs.yml` builds and deploys the site to GitHub Pages on every
+push to `master` that touches `website/`. It can also be run manually from the
+Actions tab.

@@ -84,11 +84,6 @@ jobs:
       - name: Install website dependencies
         run: npm ci
 
-      - name: Smoke test website serve script
-        run: |
-          npm run serve >/tmp/dotfiles-website.log 2>&1 &
-          server_pid=$!
-          trap 'kill "$server_pid"' EXIT
-
-          sleep 2
-          curl -fsS http://127.0.0.1:8000/index.html >/dev/null
+      # Fails on broken internal links and invalid frontmatter
+      - name: Build docs
+        run: npm run docs:build
