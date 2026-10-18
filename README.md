@@ -159,6 +159,68 @@ Mouse support and vi copy mode are enabled. Selection is copied to the system cl
 | [aerial.nvim](https://github.com/stevearc/aerial.nvim) | Code outline |
 | [diffview.nvim](https://github.com/sindrets/diffview.nvim) | Git diff viewer |
 | [copilot.vim](https://github.com/github/copilot.vim) | GitHub Copilot |
+| [avante.nvim](https://github.com/yetone/avante.nvim) | AI sidebar; drives Claude Code over ACP |
+
+### AI: Claude Code via Avante
+
+`nvim/lua/plugins/ai.lua` points [avante.nvim](https://github.com/yetone/avante.nvim)
+at the local Claude Code CLI over [ACP](https://agentclientprotocol.com) (Agent
+Client Protocol), so the sidebar runs the same agent as the `claude` terminal —
+same tools, same session history, same `claude login` credentials. No
+`ANTHROPIC_API_KEY` required.
+
+Prerequisite (once):
+
+```bash
+npm install -g @agentclientprotocol/claude-agent-acp
+claude login   # if you have not already
+```
+
+| Key | Action |
+|---|---|
+| `,aa` | Ask — open the sidebar and prompt Claude Code |
+| `,an` | New conversation |
+| `,at` | Toggle the sidebar |
+| `,af` | Focus the sidebar |
+| `,az` | Zen mode (full-screen, CLI-like) |
+| `,ae` | Edit the visual selection in place |
+| `,aS` | Stop the running agent |
+| `,ar` | Refresh the sidebar |
+| `,ac` | Add the current buffer as context |
+| `,aB` | Add all open buffers as context |
+| `,ah` | Browse conversation history |
+| `,aM` | Pick the Claude Code model |
+| `,am` | Pick the permission mode (`default`, `acceptEdits`, `plan`, `auto`, `bypassPermissions`) |
+| `,aC` | Toggle selection hints |
+| `,as` | Toggle inline suggestions |
+| `,ad` | Toggle debug output |
+| `,aR` | Toggle the repo map |
+
+Inside the sidebar:
+
+| Key | Action |
+|---|---|
+| `<CR>` / `Ctrl+s` | Submit (normal / insert mode) |
+| `Tab` / `Shift+Tab` | Switch between input and response windows |
+| `Shift+Tab` | Expand a tool-use block |
+| `A` / `a` | Apply all diffs / apply diff at cursor |
+| `r` / `e` | Retry / edit your last request |
+| `@` / `d` | Add / remove a context file |
+| `x` | Toggle the code window |
+| `q` | Close the sidebar |
+
+Reviewing the diffs Claude produces:
+
+| Key | Action |
+|---|---|
+| `]x` / `[x` | Next / previous conflict |
+| `co` / `ct` | Keep ours / theirs |
+| `ca` / `cb` / `cc` | Keep all theirs / both / the block at the cursor |
+
+`:AvanteSwitchProvider claude` falls back to the plain Anthropic HTTP API
+(needs `ANTHROPIC_API_KEY` — run `secret-set ANTHROPIC_API_KEY` and paste it at
+the prompt; Avante reads it from Keychain on demand);
+`:AvanteSwitchProvider claude-code` returns to ACP.
 
 ### First launch
 
