@@ -14,7 +14,11 @@ check_plugin_and_install() {
 main() {
     echo "Checking and setting up oh-my-zsh as default shell..."
     if [ ! -d ~/.oh-my-zsh ]; then
-        sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" --unattended
+        # Download fully before running so a failed fetch never reaches sh
+        omz_installer="$(mktemp)"
+        curl -fsSL -o "${omz_installer}" https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh \
+            && sh "${omz_installer}" --unattended
+        rm -f "${omz_installer}"
     fi
 
     echo "Installing autojump plugin if not exists..."
