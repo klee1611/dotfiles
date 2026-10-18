@@ -35,7 +35,13 @@ main() {
     echo "Checking if gvm is installed..."
     if [ $(check_installed "gvm" "gvm") -eq 0 ]; then
         echo "Installing gvm and go..."
-        bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
+        # Download fully before running: -f fails on HTTP errors instead of
+        # piping an error page into bash, and a dropped connection cannot
+        # execute a truncated script.
+        gvm_installer="$(mktemp)"
+        curl -fsSL -o "${gvm_installer}" https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer \
+            && bash "${gvm_installer}"
+        rm -f "${gvm_installer}"
 	fi
 
 	[[ -s "${HOME}/.gvm/scripts/gvm" ]] && source "${HOME}/.gvm/scripts/gvm"

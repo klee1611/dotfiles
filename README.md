@@ -83,30 +83,52 @@ source ~/.zshrc
 
 ## 🔐 Secrets Management
 
-API keys and tokens are stored in **macOS Keychain** and exported automatically at shell startup. No secrets are ever written to files.
+Static API tokens live in **macOS Keychain** and are handed to one command at a
+time. Nothing is exported into your shell, nothing is written to files, and
+values are never passed as command arguments.
 
-`zsh/secrets.list` (committed) lists only env var **names**. Values live exclusively in Keychain.
+`zsh/secrets.list` (committed) lists only the **names** you expect to have stored.
+
+### Prefer a login over a stored key
+
+Where a CLI has a login flow, use it — there is no long-lived secret to store or leak:
+
+| Service | Login |
+|---|---|
+| Claude Code / Avante | `claude login` |
+| AWS | `aws configure sso` once, then `aws sso login` (short-lived credentials) |
+| Google Cloud | `gcloud auth login` and `gcloud auth application-default login` |
+
+Only tokens with no login flow (e.g. `KAGGLE_API_TOKEN`) belong in `secrets.list`.
 
 ### Setup
 
 ```zsh
-secret-set KAGGLE_API_TOKEN your_value
-secret-set AWS_ACCESS_KEY_ID your_value
-secret-set AWS_SECRET_ACCESS_KEY your_value
+secret-set KAGGLE_API_TOKEN       # prompts for the value (hidden, with confirmation)
 ```
 
-After storing, values are exported automatically in every new shell — same effect as `export KAGGLE_KEY=...`.
+### Use
+
+```zsh
+secret-run KAGGLE_API_TOKEN -- python train.py
+```
+
+Only that command (and what it starts) sees the token. Each read shows a macOS
+Keychain dialog asking for your login password — choose **Allow**, not
+**Always Allow** (that re-trusts `security` and makes reads silent again).
+Only approve a dialog right after running something that needs a secret.
 
 ### Commands
 
 | Command | Description |
 |---|---|
-| `secret-set VAR value` | Store or update a secret in Keychain |
+| `secret-set VAR` | Store or replace a secret (prompts; never pass the value inline) |
+| `secret-run VAR... -- cmd` | Run one command with those secrets in its environment |
 | `secret-get VAR` | Print a secret's value |
 | `secret-del VAR` | Remove a secret from Keychain |
-| `secret-list` | Show status of all tracked secrets |
+| `secret-list` | Show which tracked secrets are stored (never reads values) |
 
-To add a new service, append its env var name to `zsh/secrets.list` and run `secret-set` once.
+To add a token, append its name to `zsh/secrets.list` and run `secret-set` once.
 
 ## 🖥️ Tmux
 
@@ -159,6 +181,68 @@ Mouse support and vi copy mode are enabled. Selection is copied to the system cl
 | [aerial.nvim](https://github.com/stevearc/aerial.nvim) | Code outline |
 | [diffview.nvim](https://github.com/sindrets/diffview.nvim) | Git diff viewer |
 | [copilot.vim](https://github.com/github/copilot.vim) | GitHub Copilot |
+| [avante.nvim](https://github.com/yetone/avante.nvim) | AI sidebar; drives Claude Code over ACP |
+
+### AI: Claude Code via Avante
+
+`nvim/lua/plugins/ai.lua` points [avante.nvim](https://github.com/yetone/avante.nvim)
+at the local Claude Code CLI over [ACP](https://agentclientprotocol.com) (Agent
+Client Protocol), so the sidebar runs the same agent as the `claude` terminal —
+same tools, same session history, same `claude login` credentials. No
+`ANTHROPIC_API_KEY` required.
+
+Prerequisite (once):
+
+```bash
+npm install -g @agentclientprotocol/claude-agent-acp
+claude login   # if you have not already
+```
+
+| Key | Action |
+|---|---|
+| `,aa` | Ask — open the sidebar and prompt Claude Code |
+| `,an` | New conversation |
+| `,at` | Toggle the sidebar |
+| `,af` | Focus the sidebar |
+| `,az` | Zen mode (full-screen, CLI-like) |
+| `,ae` | Edit the visual selection in place |
+| `,aS` | Stop the running agent |
+| `,ar` | Refresh the sidebar |
+| `,ac` | Add the current buffer as context |
+| `,aB` | Add all open buffers as context |
+| `,ah` | Browse conversation history |
+| `,aM` | Pick the Claude Code model |
+| `,am` | Pick the permission mode (`default`, `acceptEdits`, `plan`, `auto`, `bypassPermissions`) |
+| `,aC` | Toggle selection hints |
+| `,as` | Toggle inline suggestions |
+| `,ad` | Toggle debug output |
+| `,aR` | Toggle the repo map |
+
+Inside the sidebar:
+
+| Key | Action |
+|---|---|
+| `<CR>` / `Ctrl+s` | Submit (normal / insert mode) |
+| `Tab` / `Shift+Tab` | Switch between input and response windows |
+| `Shift+Tab` | Expand a tool-use block |
+| `A` / `a` | Apply all diffs / apply diff at cursor |
+| `r` / `e` | Retry / edit your last request |
+| `@` / `d` | Add / remove a context file |
+| `x` | Toggle the code window |
+| `q` | Close the sidebar |
+
+Reviewing the diffs Claude produces:
+
+| Key | Action |
+|---|---|
+| `]x` / `[x` | Next / previous conflict |
+| `co` / `ct` | Keep ours / theirs |
+| `ca` / `cb` / `cc` | Keep all theirs / both / the block at the cursor |
+
+`:AvanteSwitchProvider claude` falls back to the plain Anthropic HTTP API
+(needs `ANTHROPIC_API_KEY` — run `secret-set ANTHROPIC_API_KEY` and paste it at
+the prompt; Avante reads it from Keychain on demand);
+`:AvanteSwitchProvider claude-code` returns to ACP.
 
 ### First launch
 
