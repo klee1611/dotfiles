@@ -76,6 +76,26 @@ return {
 	{
 		"zbirenbaum/copilot-cmp",
 		config = function()
+			-- copilot-cmp is unmaintained (last upstream commit Dec 2024) and calls
+			-- client.is_stopped() with a dot. Neovim 0.11+ deprecates that in favour
+			-- of client:is_stopped(), and since is_available() runs on every cmp
+			-- completion check the warning fires constantly. Patch the source table
+			-- before setup; instances index into it via __index, so this covers the
+			-- source cmp ends up registering.
+			local source = require("copilot_cmp.source")
+			source.is_available = function(self)
+				-- upstream wrote `not self.client.name == "copilot"`, which parses as
+				-- `(not name) == "copilot"` and is always false; spelled correctly here
+				if self.client:is_stopped() or self.client.name ~= "copilot" then
+					return false
+				end
+
+				return next(vim.lsp.get_clients({
+					bufnr = vim.api.nvim_get_current_buf(),
+					id = self.client.id,
+				})) ~= nil
+			end
+
 			require("copilot_cmp").setup()
 		end,
 	},
