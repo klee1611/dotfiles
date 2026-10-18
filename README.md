@@ -83,30 +83,52 @@ source ~/.zshrc
 
 ## 🔐 Secrets Management
 
-API keys and tokens are stored in **macOS Keychain** and exported automatically at shell startup. No secrets are ever written to files.
+Static API tokens live in **macOS Keychain** and are handed to one command at a
+time. Nothing is exported into your shell, nothing is written to files, and
+values are never passed as command arguments.
 
-`zsh/secrets.list` (committed) lists only env var **names**. Values live exclusively in Keychain.
+`zsh/secrets.list` (committed) lists only the **names** you expect to have stored.
+
+### Prefer a login over a stored key
+
+Where a CLI has a login flow, use it — there is no long-lived secret to store or leak:
+
+| Service | Login |
+|---|---|
+| Claude Code / Avante | `claude login` |
+| AWS | `aws configure sso` once, then `aws sso login` (short-lived credentials) |
+| Google Cloud | `gcloud auth login` and `gcloud auth application-default login` |
+
+Only tokens with no login flow (e.g. `KAGGLE_API_TOKEN`) belong in `secrets.list`.
 
 ### Setup
 
 ```zsh
-secret-set KAGGLE_API_TOKEN your_value
-secret-set AWS_ACCESS_KEY_ID your_value
-secret-set AWS_SECRET_ACCESS_KEY your_value
+secret-set KAGGLE_API_TOKEN       # prompts for the value (hidden, with confirmation)
 ```
 
-After storing, values are exported automatically in every new shell — same effect as `export KAGGLE_KEY=...`.
+### Use
+
+```zsh
+secret-run KAGGLE_API_TOKEN -- python train.py
+```
+
+Only that command (and what it starts) sees the token. Each read shows a macOS
+Keychain dialog asking for your login password — choose **Allow**, not
+**Always Allow** (that re-trusts `security` and makes reads silent again).
+Only approve a dialog right after running something that needs a secret.
 
 ### Commands
 
 | Command | Description |
 |---|---|
-| `secret-set VAR value` | Store or update a secret in Keychain |
+| `secret-set VAR` | Store or replace a secret (prompts; never pass the value inline) |
+| `secret-run VAR... -- cmd` | Run one command with those secrets in its environment |
 | `secret-get VAR` | Print a secret's value |
 | `secret-del VAR` | Remove a secret from Keychain |
-| `secret-list` | Show status of all tracked secrets |
+| `secret-list` | Show which tracked secrets are stored (never reads values) |
 
-To add a new service, append its env var name to `zsh/secrets.list` and run `secret-set` once.
+To add a token, append its name to `zsh/secrets.list` and run `secret-set` once.
 
 ## 🖥️ Tmux
 
