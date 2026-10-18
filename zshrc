@@ -87,3 +87,6 @@ source ~/.config/zsh/aliases
 source ~/.config/zsh/zsh_functions
 source ~/.config/zsh/load_secrets
 
+# DevRelay — appended rather than prepended so nothing installed there can
+# shadow a system or Homebrew command
+export PATH="$PATH:$HOME/.devrelay/bin"
