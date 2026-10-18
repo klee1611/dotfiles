@@ -1,11 +1,13 @@
 {
   "name": "dotfiles-website",
   "version": "1.0.0",
-  "description": "Professional website for dotfiles development environment setup",
-  "main": "index.html",
+  "private": true,
+  "description": "Documentation site for the dotfiles development environment",
+  "type": "module",
   "scripts": {
-    "deploy": "gh-pages -d . --dotfiles",
-    "serve": "python3 -m http.server 8000"
+    "docs:dev": "vitepress dev",
+    "docs:build": "vitepress build",
+    "docs:preview": "vitepress preview"
   },
   "keywords": [
     "dotfiles",
@@ -14,9 +16,11 @@
     "tmux",
     "development-environment"
   ],
-  "author": "",
   "license": "MIT",
   "devDependencies": {
-    "gh-pages": "^6.3.0"
+    "vitepress": "^1.6.4"
+  },
+  "overrides": {
+    "vite": "^6.4.3"
   }
 }
